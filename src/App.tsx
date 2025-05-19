@@ -5,6 +5,7 @@ import TechStack from './components/TechStack';
 import About from './components/About';
 import Services from './components/Services';
 import Projects from './components/Projects';
+import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 
@@ -18,6 +19,7 @@ function App() {
         <About />
         <Services />
         <Projects />
+        <Certificates />
         <Contact />
       </main>
       <Footer />

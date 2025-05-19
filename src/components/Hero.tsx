@@ -39,12 +39,28 @@ const Hero = () => {
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-3xl md:text-4xl font-light mb-2"
             >
-              I'm Jensen
+              I'm Rawaz Darya
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="text-lg text-gray-400 mb-1"
+            >
+              rawazd.akram@gmail.com
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="text-lg text-gray-400 mb-4"
+            >
+              +9647712177926
             </motion.p>
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
               className="relative"
             >
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-8">
@@ -55,7 +71,7 @@ const Hero = () => {
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.6 }}
+              transition={{ duration: 0.6, delay: 0.8 }}
               className="flex gap-4 mt-8 justify-center md:justify-start"
             >
               <motion.a
@@ -90,8 +106,8 @@ const Hero = () => {
               <div className="absolute inset-0 rounded-full bg-gradient-to-br from-rose-500 to-blue-700 animate-pulse-slow"></div>
               <div className="absolute inset-1 rounded-full overflow-hidden bg-slate-800">
                 <img
-                  src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-                  alt="Portrait of Jensen"
+                  src="/Rawaz.jpg"
+                  alt="Portrait of Rawaz Darya"
                   className="w-full h-full object-cover"
                 />
               </div>
