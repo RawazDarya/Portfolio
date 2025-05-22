@@ -1,3 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Poppins:wght@500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply font-sans bg-primary-bg text-primary-text;
+    /* Default to light theme. Dark theme is applied via class on <html> */
+    /* font-family defined via Tailwind's 'font-sans' which now defaults to Inter */
+    /* background-color and color use custom properties from tailwind.config.js */
+  }
+}
