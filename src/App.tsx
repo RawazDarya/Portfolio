@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Hero from './components/Hero';
 import TechStack from './components/TechStack';
 import About from './components/About';
 import Services from './components/Services';
 import Projects from './components/Projects';
+import Certificates from './components/portfolio/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import Studio from './components/Studio/Studio';
 
-function App() {
+const PortfolioLayout = () => {
   const [activeSection, setActiveSection] = useState<string>('home');
 
   return (
@@ -20,10 +23,21 @@ function App() {
         <About setActiveSection={setActiveSection} />
         <Services setActiveSection={setActiveSection} />
         <Projects setActiveSection={setActiveSection} />
+        <Certificates />
         <Contact setActiveSection={setActiveSection} />
       </main>
       <Footer />
     </div>
+  );
+};
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<PortfolioLayout />} />
+      <Route path="/studio/*" element={<Studio />} />
+      <Route path="*" element={<div><h2>404 - Page Not Found</h2><p>The page you are looking for does not exist.</p> <a href="/">Go Home</a></div>} />
+    </Routes>
   );
 }
 

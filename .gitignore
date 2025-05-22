@@ -25,4 +25,5 @@ dist-ssr
 .env
 .ai*
 .cursor*
-
+.supabaseClient.json
+.supabaseClient.js

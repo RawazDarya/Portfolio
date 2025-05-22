@@ -1,10 +1,25 @@
 import React from 'react';
-import { Project } from '../types';
+// import { Project } from '../types'; // Original import, we'll use ProjectFromSupabase directly or from types later
 import { ArrowUpRight, Github } from 'lucide-react';
 import { motion } from 'framer-motion';
 
+// Define the interface consistent with data from Supabase
+// This can be moved to a central types file (e.g., src/types.ts) and imported
+interface ProjectFromSupabase {
+  id: string;
+  created_at: string;
+  title: string;
+  description: string | null;
+  image_url: string | null;
+  tech_stack: string[] | null;
+  live_link: string | null;
+  demo_link: string | null;
+  is_visible: boolean;
+  // codePreview?: string; // Add if you plan to have this field in Supabase or pass it some other way
+}
+
 interface ProjectCardProps {
-  project: Project;
+  project: ProjectFromSupabase; // Use the Supabase-aligned interface
   isEven: boolean;
   index: number;
 }
@@ -24,10 +39,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEven, index }) => 
         whileHover={{ scale: 1.02 }}
         transition={{ duration: 0.3 }}
       >
-        {project.image ? (
+        {project.image_url ? (
           <div className="aspect-video rounded-lg overflow-hidden border-2 border-gray-300 dark:border-gray-700 hover:border-accent dark:hover:border-accent transition-colors duration-300">
             <motion.img 
-              src={project.image} 
+              src={project.image_url} // Use image_url
               alt={project.title} 
               className="w-full h-full object-cover"
               loading="lazy"
@@ -37,7 +52,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEven, index }) => 
           </div>
         ) : (
           <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-700 hover:border-accent dark:hover:border-accent transition-colors p-4 font-mono text-sm text-primary-text dark:text-dark-primary-text">
-            <pre className="whitespace-pre-wrap">{project.codePreview}</pre>
+            {/* Fallback if no image_url, perhaps show description or a placeholder */}
+            <pre className="whitespace-pre-wrap">{project.description || 'No preview available'}</pre>
           </div>
         )}
       </motion.div>
@@ -54,22 +70,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEven, index }) => 
           {project.title}
         </motion.h3>
         
-        {/* Tags */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {project.tags.map((tag, tagIndex) => (
-            <motion.span 
-              key={tagIndex} 
-              className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-secondary-text dark:text-dark-secondary-text rounded-full text-xs font-medium"
-              initial={{ opacity: 0, scale: 0 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.3, delay: 0.3 + tagIndex * 0.1 }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.1 }}
-            >
-              {tag}
-            </motion.span>
-          ))}
-        </div>
+        {/* Tech Stack (formerly Tags) */}
+        {project.tech_stack && project.tech_stack.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-4">
+            {project.tech_stack.map((tech, tagIndex) => (
+              <motion.span 
+                key={tagIndex} 
+                className="px-3 py-1 bg-gray-200 dark:bg-gray-700 text-secondary-text dark:text-dark-secondary-text rounded-full text-xs font-medium"
+                initial={{ opacity: 0, scale: 0 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.3, delay: 0.3 + tagIndex * 0.1 }}
+                viewport={{ once: true }}
+                whileHover={{ scale: 1.1 }}
+              >
+                {tech}
+              </motion.span>
+            ))}
+          </div>
+        )}
         
         <motion.p
           className="text-secondary-text dark:text-dark-secondary-text mb-6"
@@ -83,28 +101,32 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isEven, index }) => 
         
         {/* Links */}
         <div className="flex gap-4">
-          <motion.a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-primary-text dark:text-dark-primary-text rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Github size={18} />
-            <span>View Github</span>
-          </motion.a>
-          <motion.a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white dark:text-dark-primary-text rounded hover:bg-accent-hover transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <span>View project</span>
-            <ArrowUpRight size={18} />
-          </motion.a>
+          {project.demo_link && (
+            <motion.a
+              href={project.demo_link} // Use demo_link for GitHub/Code
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-primary-text dark:text-dark-primary-text rounded hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Github size={18} />
+              <span>View Code</span> 
+            </motion.a>
+          )}
+          {project.live_link && (
+            <motion.a
+              href={project.live_link} // Use live_link for Live URL
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2 bg-accent text-white dark:text-dark-primary-text rounded hover:bg-accent-hover transition-colors"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>View project</span>
+              <ArrowUpRight size={18} />
+            </motion.a>
+          )}
         </div>
       </div>
     </motion.div>

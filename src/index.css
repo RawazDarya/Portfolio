@@ -5,13 +5,44 @@
 @tailwind utilities;
 
 @layer base {
+  :root {
+    --color-primary-bg: #F9FAFB;        /* gray-50 */
+    --color-secondary-bg: #FFFFFF;      /* white */
+    --color-primary-text: #111827;      /* gray-900 */
+    --color-secondary-text: #6B7280;    /* gray-500 */
+    --color-accent: #3B82F6;             /* blue-500 */
+    --color-accent-hover: #2563EB;       /* blue-600 */
+
+    /* Define other shared colors if needed */
+  }
+
+  .dark:root {
+    --color-primary-bg: #111827;        /* dark-primary-bg (gray-900) */
+    --color-secondary-bg: #1F2937;      /* dark-secondary-bg (gray-800) */
+    --color-primary-text: #F3F4F6;      /* dark-primary-text (gray-100) */
+    --color-secondary-text: #9CA3AF;    /* dark-secondary-text (gray-400) */
+    /* Accent colors can be the same or overridden for dark mode */
+    /* --color-accent: #someDarkAccent; */ 
+  }
+
   html {
     scroll-behavior: smooth;
   }
   body {
-    @apply font-sans bg-primary-bg text-primary-text;
-    /* Default to light theme. Dark theme is applied via class on <html> */
-    /* font-family defined via Tailwind's 'font-sans' which now defaults to Inter */
-    /* background-color and color use custom properties from tailwind.config.js */
+    @apply bg-primary-bg text-primary-text;
+    font-family: 'Inter', sans-serif; /* Default sans-serif font */
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Poppins', sans-serif; /* Headings font */
+  }
+
+  /* Add other global styles or overrides here */
 }
+
+/* Example of how to use a custom utility if needed */
+/* @layer utilities {
+  .custom-utility {
+    @apply bg-red-500 text-white;
+  }
+} */

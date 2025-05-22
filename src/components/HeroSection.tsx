@@ -50,7 +50,7 @@ const HeroSection: React.FC = () => {
   return (
     <motion.section
       id="home" // For navigation
-      className="min-h-screen flex items-center justify-center bg-primary-bg dark:bg-dark-primary-bg text-primary-text dark:text-dark-primary-text py-20 md:py-28"
+      className="min-h-screen flex items-center justify-center bg-primary-bg dark:bg-dark-primary-bg text-primary-text dark:text-dark-primary-text py-28 md:py-36"
       variants={sectionVariants}
       initial="hidden"
       animate="visible"

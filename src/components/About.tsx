@@ -36,22 +36,40 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
               ></motion.div>
             </h2>
             <motion.p
-              className="text-secondary-text dark:text-dark-secondary-text leading-relaxed mb-6 text-lg"
+              className="text-secondary-text dark:text-dark-secondary-text leading-relaxed mb-4 text-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               viewport={{ once: true, amount: 0.2 }}
             >
-              I started my software journey from photography. Through that, I learned to love the process of creating from scratch. Since then this has led me to software development as it fulfills my love for learning and building things.
+              I'm Rawaz, a full-stack developer and computer engineer passionate about crafting seamless digital experiences.
             </motion.p>
             <motion.p
-              className="text-secondary-text dark:text-dark-secondary-text leading-relaxed text-lg"
+              className="text-secondary-text dark:text-dark-secondary-text leading-relaxed mb-4 text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              I specialize in building modern, responsive web applications using React, Laravel, Tailwind, and JavaScript.
+            </motion.p>
+            <motion.p
+              className="text-secondary-text dark:text-dark-secondary-text leading-relaxed mb-4 text-lg"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
               viewport={{ once: true, amount: 0.2 }}
             >
-              With a passion for clean code and intuitive user experiences, I create applications that not only work well but feel great to use. Let's work together to bring your vision to life!
+              With a strong foundation in both front-end and back-end development, I focus on writing clean, scalable code.
+            </motion.p>
+            <motion.p
+              className="text-secondary-text dark:text-dark-secondary-text leading-relaxed text-lg"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              viewport={{ once: true, amount: 0.2 }}
+            >
+              Driven by curiosity and discipline, I'm always learning, improving, and bringing new ideas to life.
             </motion.p>
           </motion.div>
           <motion.div 
