@@ -12,7 +12,6 @@ import {
   AlertCircle,
   Github,
   Linkedin,
-  Twitter,
   Calendar,
   Clock,
   Sparkles
@@ -100,21 +99,15 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
   const socialLinks = [
     {
       icon: <Github className="h-5 w-5" />,
-      href: 'https://github.com/rawaz',
+      href: 'https://github.com/RawazDarya',
       label: 'GitHub',
       color: '#333'
     },
     {
       icon: <Linkedin className="h-5 w-5" />,
-      href: 'https://linkedin.com/in/rawaz',
+      href: 'https://www.linkedin.com/in/rawaz-darya-259253221/',
       label: 'LinkedIn',
       color: '#0077B5'
-    },
-    {
-      icon: <Twitter className="h-5 w-5" />,
-      href: 'https://twitter.com/rawaz',
-      label: 'Twitter',
-      color: '#1DA1F2'
     }
   ];
 
@@ -366,7 +359,7 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:text-white transition-all duration-300"
+                    className="w-12 h-12 rounded-xl bg-gray-100 dark:bg-gray-800/80 hover:bg-gray-200 dark:hover:bg-gray-700/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700/50 flex items-center justify-center text-gray-700 dark:text-gray-300 hover:text-white transition-all duration-300 shadow-sm hover:shadow-md"
                     whileHover={{ 
                       scale: 1.1, 
                       backgroundColor: social.color,

@@ -35,13 +35,13 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
   const socialLinks = [
     { 
       icon: <Github className="h-5 w-5" />, 
-      href: 'https://github.com/rawaz', 
+      href: 'https://github.com/RawazDarya', 
       label: 'GitHub',
       color: '#333'
     },
     { 
       icon: <Linkedin className="h-5 w-5" />, 
-      href: 'https://linkedin.com/in/rawaz', 
+      href: 'https://www.linkedin.com/in/rawaz-darya-259253221/', 
       label: 'LinkedIn',
       color: '#0077B5'
     },
