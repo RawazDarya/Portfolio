@@ -109,12 +109,12 @@ const TechStack: React.FC<TechStackProps> = ({ setActiveSection }) => {
     <section 
       ref={techStackRef} 
       id="techstack" 
-      className="py-12 md:py-16 bg-secondary-bg dark:bg-dark-secondary-bg text-primary-text dark:text-dark-primary-text overflow-hidden"
+      className="py-16 md:py-20 bg-secondary-bg dark:bg-dark-secondary-bg text-primary-text dark:text-dark-primary-text overflow-hidden"
     >
       <div className="container mx-auto px-4 md:px-6">
         {/* Section Title */}
         <motion.h2 
-          className="text-2xl md:text-3xl font-headings font-semibold text-center mb-10 md:mb-12 text-primary-text dark:text-dark-primary-text"
+          className="text-2xl md:text-3xl font-headings font-semibold text-center mb-12 md:mb-16 text-primary-text dark:text-dark-primary-text"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -172,17 +172,6 @@ const TechStack: React.FC<TechStackProps> = ({ setActiveSection }) => {
           <div className="absolute top-0 left-0 w-16 md:w-24 h-full bg-gradient-to-r from-secondary-bg dark:from-dark-secondary-bg to-transparent pointer-events-none z-10"></div>
           <div className="absolute top-0 right-0 w-16 md:w-24 h-full bg-gradient-to-l from-secondary-bg dark:from-dark-secondary-bg to-transparent pointer-events-none z-10"></div>
         </div>
-        
-        {/* Optional: Small description */}
-        <motion.p
-          className="text-center mt-8 text-sm text-secondary-text dark:text-dark-secondary-text opacity-70"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 0.7 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          viewport={{ once: true }}
-        >
-          Hover over any technology to see it in action ✨
-        </motion.p>
       </div>
     </section>
   );

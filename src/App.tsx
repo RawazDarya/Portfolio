@@ -23,7 +23,7 @@ const PortfolioLayout = () => {
         <About setActiveSection={setActiveSection} />
         <Services setActiveSection={setActiveSection} />
         <Projects setActiveSection={setActiveSection} />
-        <Certificates />
+        <Certificates setActiveSection={setActiveSection} />
         <Contact setActiveSection={setActiveSection} />
       </main>
       <Footer />
