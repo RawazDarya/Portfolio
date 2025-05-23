@@ -84,6 +84,12 @@ function TechStackTable({ techStack, onAdd, onEdit, onDelete }) {
       </div>
 
       <div className="bg-white shadow-md rounded-lg overflow-hidden">
+        {/* Debug: Show raw data */}
+        <div className="bg-yellow-100 p-2 text-xs">
+          <strong>DEBUG:</strong> techStack.length = {techStack?.length || 0}, 
+          condition = {techStack && techStack.length > 0 ? 'TRUE' : 'FALSE'}
+        </div>
+        
         <table className="min-w-full leading-normal">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">

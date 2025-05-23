@@ -21,11 +21,12 @@ const toSnakeCase = (obj) => {
 const loadTableData = async (tableName) => {
   try {
     const { data, error } = await supabase.from(tableName).select('*').order('created_at', { ascending: false });
-    if (error) throw error;
+    if (error) {
+      throw error;
+    }
     return data || []; // Return data or empty array if null
   } catch (error) {
     console.error(`Could not load data from ${tableName}:`, error.message);
-    // Consider setting a more specific error state here for the UI
     return []; 
   }
 };
@@ -122,7 +123,6 @@ function Studio() {
     try {
       const projectsData = await loadTableData('projects');
       const certificatesData = await loadTableData('certificates');
-      // Ensure your tech stack table in Supabase is named 'tech_stack_items' as per SQL script
       const techStackData = await loadTableData('tech_stack_items'); 
       
       setProjects(projectsData);

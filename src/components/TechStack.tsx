@@ -32,7 +32,7 @@ const TechStack: React.FC<TechStackProps> = ({ setActiveSection }) => {
           .from('tech_stack_items')
           .select('*')
           .eq('is_visible', true)
-          .order('name', { ascending: true }); // Or by category, then name
+          .order('name', { ascending: true });
 
         if (fetchError) {
           throw fetchError;
@@ -62,8 +62,15 @@ const TechStack: React.FC<TechStackProps> = ({ setActiveSection }) => {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } }, // Adjusted duration
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
   };
+  
+  console.log('🔍 TechStack render state:', {
+    loading,
+    error,
+    techItemsLength: techItems.length,
+    hasItems: techItems.length > 0
+  });
   
   if (loading) {
     return (
@@ -94,30 +101,29 @@ const TechStack: React.FC<TechStackProps> = ({ setActiveSection }) => {
       ref={techStackRef} 
       id="techstack" 
       className="py-12 md:py-16 bg-secondary-bg dark:bg-dark-secondary-bg text-primary-text dark:text-dark-primary-text"
-      variants={containerVariants}
-      initial="hidden"
-      // Animate to visible when techItems are loaded to ensure content is ready for animation
-      animate={techItems.length > 0 ? "visible" : "hidden"}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
     >
       <div className="container mx-auto px-4 md:px-6">
         <motion.h2 
           className="text-2xl md:text-3xl font-headings font-semibold text-center mb-10 md:mb-12 text-primary-text dark:text-dark-primary-text"
           initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }} // Could also use whileInView here
-          transition={{ delay: 0.1, duration: 0.5 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+          viewport={{ once: true }}
         >
           Technologies I Work With
         </motion.h2>
-        <motion.div
-          variants={containerVariants} // Re-apply variants if you want nested staggering on this div itself
-          // initial="hidden" // Not needed if parent section handles initial animation
-          // animate="visible" // Not needed if parent section handles initial animation
-          className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8"
-        >
-          {techItems.map((tech) => (
+        <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-6 md:gap-x-12 md:gap-y-8">
+          {techItems.map((tech, index) => (
             <motion.div
               key={tech.id}
-              variants={itemVariants}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 + index * 0.1, duration: 0.4 }}
+              viewport={{ once: true }}
               className="flex flex-col items-center gap-2 text-secondary-text dark:text-dark-secondary-text hover:text-accent dark:hover:text-accent transition-colors duration-300"
               whileHover={{ scale: 1.1 }}
             >
@@ -136,13 +142,12 @@ const TechStack: React.FC<TechStackProps> = ({ setActiveSection }) => {
                   />
                 )
               ) : (
-                // Fallback icon if none provided from DB (optional)
                 <span className="h-7 w-7 md:h-8 md:w-8 text-gray-400">?</span> 
               )}
               <span className="text-sm font-medium">{tech.name}</span>
             </motion.div>
           ))}
-        </motion.div>
+        </div>
       </div>
     </motion.section>
   );
