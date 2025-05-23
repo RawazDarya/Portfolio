@@ -295,16 +295,6 @@ const Projects: React.FC<ProjectsProps> = ({ setActiveSection }) => {
                           </motion.a>
                         )}
                       </div>
-
-                      {/* Creation Date */}
-                      <div className="mt-4 pt-4 border-t border-gray-200/50 dark:border-gray-700/50 text-center">
-                        <span className="text-xs text-gray-500 dark:text-gray-400">
-                          {new Date(project.created_at).toLocaleDateString('en-US', {
-                            year: 'numeric',
-                            month: 'short'
-                          })}
-                        </span>
-                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -481,16 +471,6 @@ const Projects: React.FC<ProjectsProps> = ({ setActiveSection }) => {
                                 Live Demo
                               </motion.a>
                             )}
-                          </div>
-
-                          {/* Creation Date */}
-                          <div className="mt-3 pt-3 border-t border-gray-200/50 dark:border-gray-700/50">
-                            <span className="text-xs text-gray-500 dark:text-gray-400">
-                              {new Date(project.created_at).toLocaleDateString('en-US', {
-                                year: 'numeric',
-                                month: 'short'
-                              })}
-                            </span>
                           </div>
                         </div>
                       </div>
