@@ -9,6 +9,7 @@ const initialProjectFormState = {
   liveLink: '',
   demoLink: '',
   is_visible: true, // Default to true for new projects
+  is_featured: false, // Default to false for new projects
 };
 
 function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
@@ -25,6 +26,7 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
         imageUrl: project.image_url || project.imageUrl || '', // Handle both snake_case and camelCase from potential DB fetch vs form state
         techStack: Array.isArray(project.tech_stack) ? project.tech_stack.join(', ') : (Array.isArray(project.techStack) ? project.techStack.join(', ') : ''),
         is_visible: project.hasOwnProperty('is_visible') ? project.is_visible : true, // Ensure is_visible is handled
+        is_featured: project.hasOwnProperty('is_featured') ? project.is_featured : false, // Ensure is_featured is handled
       });
     } else {
       setCurrentProject(null);
@@ -55,6 +57,8 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
       techStack: formData.techStack.split(',').map(tech => tech.trim()).filter(tech => tech !== ''),
       // Ensure is_visible is a boolean
       is_visible: Boolean(formData.is_visible),
+      // Ensure is_featured is a boolean
+      is_featured: Boolean(formData.is_featured),
     };
 
     if (currentProject) {
@@ -95,6 +99,7 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
               <th className="py-3 px-6 text-left">Title</th>
               <th className="py-3 px-6 text-left">Description</th>
               <th className="py-3 px-6 text-left">Tech Stack</th>
+              <th className="py-3 px-6 text-center">Featured</th>
               <th className="py-3 px-6 text-center">Actions</th>
             </tr>
           </thead>
@@ -111,6 +116,13 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
                   <td className="py-3 px-6 text-left">{project.description.substring(0,50)}{project.description.length > 50 && '...'}</td>
                   <td className="py-3 px-6 text-left">{Array.isArray(project.techStack) ? project.techStack.join(', ') : 'N/A'}</td>
                   <td className="py-3 px-6 text-center">
+                    {project.is_featured ? (
+                      <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">Featured</span>
+                    ) : (
+                      <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs font-semibold rounded-full">Regular</span>
+                    )}
+                  </td>
+                  <td className="py-3 px-6 text-center">
                     <div className="flex item-center justify-center space-x-2">
                       <button onClick={() => openModal(project)} className="text-indigo-600 hover:text-indigo-900 font-medium focus:outline-none">Edit</button>
                       <button onClick={() => handleDelete(project.id)} className="text-red-600 hover:text-red-900 font-medium focus:outline-none">Delete</button>
@@ -120,7 +132,7 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
               ))
             ) : (
               <tr>
-                <td colSpan="4" className="py-6 px-6 text-center text-gray-500">No projects found. Add one!</td>
+                <td colSpan="5" className="py-6 px-6 text-center text-gray-500">No projects found. Add one!</td>
               </tr>
             )}
           </tbody>
@@ -158,6 +170,11 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
             <input type="checkbox" name="is_visible" id="is_visible_project" checked={formData.is_visible} onChange={handleChange} className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
             <label htmlFor="is_visible_project" className="ml-2 block text-sm text-gray-900">Visible on portfolio</label>
           </div>
+          <div className="flex items-center">
+            <input type="checkbox" name="is_featured" id="is_featured_project" checked={formData.is_featured} onChange={handleChange} className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
+            <label htmlFor="is_featured_project" className="ml-2 block text-sm text-gray-900">Featured project</label>
+          </div>
+          <p className="text-xs text-gray-500 mt-1">Featured projects appear prominently on the portfolio homepage (max 3 recommended)</p>
           <div className="flex justify-end space-x-3 pt-2">
             <button type="button" onClick={closeModal} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Cancel
