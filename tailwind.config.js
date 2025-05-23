@@ -28,6 +28,13 @@ export default {
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'scroll-tech': 'scroll-tech 30s linear infinite',
+      },
+      keyframes: {
+        'scroll-tech': {
+          '0%': { transform: 'translateX(0)' },
+          '100%': { transform: 'translateX(-33.333%)' },
+        },
       },
     },
   },
