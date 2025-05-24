@@ -5,7 +5,7 @@ const initialProjectFormState = {
   title: '',
   description: '',
   imageUrl: '', // Changed from image to imageUrl
-  techStack: [], // Array of strings
+  techStack: '', // Changed from array to string since it's used as string in the form
   liveLink: '',
   demoLink: '',
   is_visible: true, // Default to true for new projects
@@ -74,14 +74,14 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
       title: formData.title,
       description: formData.description,
       image_url: formData.imageUrl, // Convert camelCase to snake_case
-      tech_stack: formData.techStack.split(',').map(tech => tech.trim()).filter(tech => tech !== ''), // Convert string to array
+      tech_stack: formData.techStack 
+        ? formData.techStack.split(',').map(tech => tech.trim()).filter(tech => tech !== '') 
+        : [], // Convert string to array, handle empty string
       live_link: formData.liveLink, // Convert camelCase to snake_case
       demo_link: formData.demoLink, // Convert camelCase to snake_case
       is_visible: Boolean(formData.is_visible),
       is_featured: Boolean(formData.is_featured),
     };
-
-    console.log('Submitting project data:', projectDataToSave);
 
     if (currentProject) {
       onEdit({ ...projectDataToSave, id: currentProject.id });
