@@ -16,6 +16,7 @@ import {
   Clock,
   Sparkles
 } from 'lucide-react';
+import emailjs from '@emailjs/browser';
 import useIntersectionObserver from '../hooks/useIntersectionObserver';
 
 interface FormData {
@@ -139,14 +140,39 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
     if (!validateForm()) return;
     setIsSubmitting(true);
 
-    // Simulate API call
     try {
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      // EmailJS configuration
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('EmailJS configuration is missing. Please check your environment variables.');
+      }
+
+      // Template parameters for EmailJS
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        budget: formData.budget || 'Not specified',
+        timeline: formData.timeline || 'Not specified',
+        to_email: 'rawazd.akram@gmail.com'
+      };
+
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      
       setIsSubmitted(true);
       setFormData({ name: '', email: '', subject: '', message: '', budget: '', timeline: '' });
-      setTimeout(() => setIsSubmitted(false), 5000);
+      setTimeout(() => setIsSubmitted(false), 8000);
     } catch (error) {
-      setSubmitError("A network error occurred. Please try again.");
+      console.error('EmailJS Error:', error);
+      setSubmitError(
+        error instanceof Error && error.message.includes('EmailJS configuration') 
+          ? error.message 
+          : "Failed to send message. Please try again or contact me directly at rawazd.akram@gmail.com"
+      );
     } finally {
       setIsSubmitting(false);
     }
