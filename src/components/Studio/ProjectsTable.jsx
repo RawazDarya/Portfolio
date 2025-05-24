@@ -23,10 +23,21 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
       setFormData({
         ...initialProjectFormState, // Start with defaults
         ...project, // Override with project data
-        imageUrl: project.image_url || project.imageUrl || '', // Handle both snake_case and camelCase from potential DB fetch vs form state
-        techStack: Array.isArray(project.tech_stack) ? project.tech_stack.join(', ') : (Array.isArray(project.techStack) ? project.techStack.join(', ') : ''),
-        is_visible: project.hasOwnProperty('is_visible') ? project.is_visible : true, // Ensure is_visible is handled
-        is_featured: project.hasOwnProperty('is_featured') ? project.is_featured : false, // Ensure is_featured is handled
+        // Fix field mappings to handle both snake_case (from DB) and camelCase (from form)
+        imageUrl: project.image_url || project.imageUrl || '',
+        techStack: Array.isArray(project.tech_stack) 
+          ? project.tech_stack.join(', ') 
+          : Array.isArray(project.techStack) 
+            ? project.techStack.join(', ') 
+            : typeof project.tech_stack === 'string' 
+              ? project.tech_stack 
+              : typeof project.techStack === 'string' 
+                ? project.techStack 
+                : '',
+        liveLink: project.live_link || project.liveLink || '',
+        demoLink: project.demo_link || project.demoLink || '',
+        is_visible: project.hasOwnProperty('is_visible') ? project.is_visible : true,
+        is_featured: project.hasOwnProperty('is_featured') ? project.is_featured : false,
       });
     } else {
       setCurrentProject(null);
@@ -51,15 +62,26 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validate required fields
+    if (!formData.title || !formData.description) {
+      alert('Please fill in all required fields (Title and Description)');
+      return;
+    }
+    
     const projectDataToSave = {
-      ...formData,
-      // Convert techStack string back to array
-      techStack: formData.techStack.split(',').map(tech => tech.trim()).filter(tech => tech !== ''),
-      // Ensure is_visible is a boolean
+      // Convert form field names to database field names (snake_case)
+      title: formData.title,
+      description: formData.description,
+      image_url: formData.imageUrl, // Convert camelCase to snake_case
+      tech_stack: formData.techStack.split(',').map(tech => tech.trim()).filter(tech => tech !== ''), // Convert string to array
+      live_link: formData.liveLink, // Convert camelCase to snake_case
+      demo_link: formData.demoLink, // Convert camelCase to snake_case
       is_visible: Boolean(formData.is_visible),
-      // Ensure is_featured is a boolean
       is_featured: Boolean(formData.is_featured),
     };
+
+    console.log('Submitting project data:', projectDataToSave);
 
     if (currentProject) {
       onEdit({ ...projectDataToSave, id: currentProject.id });
@@ -109,12 +131,12 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
                 <tr key={project.id} className="border-b border-gray-200 hover:bg-gray-100">
                   <td className="py-3 px-6 text-left whitespace-nowrap">
                     <div className="flex items-center">
-                      {project.image && <img src={project.image} alt={project.title} className="w-10 h-10 rounded-full mr-3 object-cover"/>}
+                      {(project.image_url || project.imageUrl) && <img src={project.image_url || project.imageUrl} alt={project.title} className="w-10 h-10 rounded-full mr-3 object-cover"/>}
                       <span className="font-medium">{project.title}</span>
                     </div>
                   </td>
                   <td className="py-3 px-6 text-left">{project.description.substring(0,50)}{project.description.length > 50 && '...'}</td>
-                  <td className="py-3 px-6 text-left">{Array.isArray(project.techStack) ? project.techStack.join(', ') : 'N/A'}</td>
+                  <td className="py-3 px-6 text-left">{Array.isArray(project.tech_stack) ? project.tech_stack.join(', ') : Array.isArray(project.techStack) ? project.techStack.join(', ') : 'N/A'}</td>
                   <td className="py-3 px-6 text-center">
                     {project.is_featured ? (
                       <span className="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs font-semibold rounded-full">Featured</span>
@@ -146,8 +168,8 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
             <div key={project.id} className="bg-white shadow-md rounded-lg p-4">
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center">
-                  {project.image && (
-                    <img src={project.image} alt={project.title} className="w-12 h-12 rounded-full mr-3 object-cover"/>
+                  {(project.image_url || project.imageUrl) && (
+                    <img src={project.image_url || project.imageUrl} alt={project.title} className="w-12 h-12 rounded-full mr-3 object-cover"/>
                   )}
                   <div>
                     <h3 className="font-medium text-gray-900">{project.title}</h3>
@@ -162,7 +184,7 @@ function ProjectsTable({ projects, onAdd, onEdit, onDelete }) {
               
               <div className="mb-3">
                 <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Tech Stack:</span>
-                <p className="text-sm text-gray-700 mt-1">{Array.isArray(project.techStack) ? project.techStack.join(', ') : 'N/A'}</p>
+                <p className="text-sm text-gray-700 mt-1">{Array.isArray(project.tech_stack) ? project.tech_stack.join(', ') : Array.isArray(project.techStack) ? project.techStack.join(', ') : 'N/A'}</p>
               </div>
               
               <div className="flex justify-end space-x-3">

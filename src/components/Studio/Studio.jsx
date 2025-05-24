@@ -10,8 +10,21 @@ import { supabase } from '../../supabaseClient'; // Corrected path
 const toSnakeCase = (obj) => {
   if (typeof obj !== 'object' || obj === null) return obj;
   if (Array.isArray(obj)) return obj.map(toSnakeCase);
+  
+  // Define specific field mappings for known camelCase to snake_case conversions
+  const fieldMappings = {
+    imageUrl: 'image_url',
+    techStack: 'tech_stack',
+    liveLink: 'live_link',
+    demoLink: 'demo_link',
+    isVisible: 'is_visible',
+    isFeatured: 'is_featured',
+    iconUrlOrSvg: 'icon_url_or_svg'
+  };
+  
   return Object.keys(obj).reduce((acc, key) => {
-    const snakeKey = key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
+    // Use specific mapping if available, otherwise convert using regex
+    const snakeKey = fieldMappings[key] || key.replace(/[A-Z]/g, letter => `_${letter.toLowerCase()}`);
     acc[snakeKey] = toSnakeCase(obj[key]);
     return acc;
   }, {});
@@ -50,10 +63,15 @@ const addTableData = async (tableName, rowData) => {
 // Helper function to update data in Supabase tables
 const updateTableData = async (tableName, rowId, rowData) => {
   try {
+    console.log(`Updating ${tableName} with ID ${rowId}:`, rowData);
     const { id, created_at, ...restOfData } = rowData; // Exclude id and created_at from update payload
     const updateData = toSnakeCase(restOfData); // Convert keys to snake_case
+    console.log('Converted to snake_case:', updateData);
+    
     const { data, error } = await supabase.from(tableName).update(updateData).eq('id', rowId).select();
     if (error) throw error;
+    
+    console.log('Update successful:', data);
     return data && data[0]; // Return the updated row
   } catch (error) {
     console.error(`Error updating data in ${tableName}:`, error.message);
@@ -90,14 +108,17 @@ function Studio() {
     supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
       setSession(currentSession);
       if (currentSession) {
+        console.log('Supabase session found:', currentSession.user.email);
         fetchInitialData();
       } else {
+        console.log('No Supabase session found');
         setIsLoading(false); // Not logged in, no data to fetch initially
       }
     });
 
     // Listen for auth changes (login/logout)
     const { data: authListener } = supabase.auth.onAuthStateChange((_event, newSession) => {
+      console.log('Auth state changed:', _event, newSession?.user?.email);
       setSession(newSession);
       if (newSession) {
         fetchInitialData(); // Fetch data if user logs in
