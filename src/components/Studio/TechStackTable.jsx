@@ -73,23 +73,18 @@ function TechStackTable({ techStack, onAdd, onEdit, onDelete }) {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold text-gray-700">Manage Tech Stack</h2>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <h2 className="text-xl sm:text-2xl font-semibold text-gray-700">Manage Tech Stack</h2>
         <button
           onClick={() => openModal()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
         >
           + Add New Tech
         </button>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
-        {/* Debug: Show raw data */}
-        <div className="bg-yellow-100 p-2 text-xs">
-          <strong>DEBUG:</strong> techStack.length = {techStack?.length || 0}, 
-          condition = {techStack && techStack.length > 0 ? 'TRUE' : 'FALSE'}
-        </div>
-        
+      {/* Tech Stack Table - Desktop */}
+      <div className="hidden md:block bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full leading-normal">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -140,6 +135,57 @@ function TechStackTable({ techStack, onAdd, onEdit, onDelete }) {
         </table>
       </div>
 
+      {/* Tech Stack Cards - Mobile */}
+      <div className="md:hidden space-y-4">
+        {techStack && techStack.length > 0 ? (
+          techStack.map(tech => (
+            <div key={tech.id} className="bg-white shadow-md rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-12 h-12 flex-shrink-0 flex items-center justify-center">
+                  {(tech.icon_url_or_svg || tech.icon) && (
+                    (tech.icon_url_or_svg || tech.icon).trim().startsWith('<svg') ? (
+                      <div 
+                        dangerouslySetInnerHTML={{ __html: (tech.icon_url_or_svg || tech.icon) }} 
+                        className="w-10 h-10 [&_svg]:h-full [&_svg]:w-full"
+                      />
+                    ) : (
+                      <img 
+                        src={(tech.icon_url_or_svg || tech.icon)} 
+                        alt={tech.name} 
+                        className="w-10 h-10 object-contain"
+                      />
+                    )
+                  )}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-medium text-gray-900">{tech.name}</h3>
+                  <p className="text-sm text-gray-600">{tech.category}</p>
+                </div>
+              </div>
+              
+              <div className="flex justify-end space-x-3">
+                <button 
+                  onClick={() => openModal(tech)} 
+                  className="text-indigo-600 hover:text-indigo-900 font-medium text-sm focus:outline-none"
+                >
+                  Edit
+                </button>
+                <button 
+                  onClick={() => handleDelete(tech.id)} 
+                  className="text-red-600 hover:text-red-900 font-medium text-sm focus:outline-none"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="bg-white shadow-md rounded-lg p-6 text-center">
+            <p className="text-gray-500">No tech stack items found. Add one!</p>
+          </div>
+        )}
+      </div>
+
       <Modal isOpen={isModalOpen} onClose={closeModal} title={currentTech ? 'Edit Tech' : 'Add New Tech'}>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -158,7 +204,7 @@ function TechStackTable({ techStack, onAdd, onEdit, onDelete }) {
             <input type="checkbox" name="is_visible" id="is_visible_tech" checked={formData.is_visible} onChange={handleChange} className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
             <label htmlFor="is_visible_tech" className="ml-2 block text-sm text-gray-900">Visible on portfolio</label>
           </div>
-          <div className="flex justify-end space-x-3 pt-2">
+          <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-2">
             <button type="button" onClick={closeModal} className="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
               Cancel
             </button>

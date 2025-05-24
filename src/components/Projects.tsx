@@ -197,7 +197,7 @@ const Projects: React.FC<ProjectsProps> = ({ setActiveSection }) => {
             featuredProjects.slice(0, 3).map((project, index) => {
               const projectColor = getProjectColor(index);
               return (
-                <motion.div
+          <motion.div
                   key={project.id}
                   variants={cardVariants}
                   className="group"
@@ -373,7 +373,7 @@ const Projects: React.FC<ProjectsProps> = ({ setActiveSection }) => {
                   const projectColor = getProjectColor(index);
                   return (
                     <motion.div
-                      key={project.id}
+              key={project.id}
                       variants={{
                         hidden: { opacity: 0, y: 30, scale: 0.9 },
                         visible: { 
@@ -473,7 +473,7 @@ const Projects: React.FC<ProjectsProps> = ({ setActiveSection }) => {
                             )}
                           </div>
                         </div>
-                      </div>
+        </div>
                     </motion.div>
                   );
                 })}

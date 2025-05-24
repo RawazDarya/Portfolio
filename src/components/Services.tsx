@@ -186,7 +186,7 @@ const Services: React.FC<ServicesProps> = ({ setActiveSection }) => {
       transition: {
         staggerChildren: 0.1,
         delayChildren: 0.2,
-      },
+    },
     },
   };
 
@@ -295,7 +295,7 @@ const Services: React.FC<ServicesProps> = ({ setActiveSection }) => {
                 {/* Card Content */}
                 <div className="relative p-6 text-center">
                   {/* Service Icon */}
-                  <motion.div
+              <motion.div
                     className="w-16 h-16 rounded-2xl flex items-center justify-center shadow-lg mb-4 mx-auto relative"
                     style={{ 
                       background: `linear-gradient(135deg, ${service.color.primary}, ${service.color.secondary})` 
@@ -305,10 +305,10 @@ const Services: React.FC<ServicesProps> = ({ setActiveSection }) => {
                       rotate: [0, -5, 5, 0],
                       transition: { duration: 0.5 } 
                     }}
-                  >
+              >
                     {service.icon}
                     <div className="absolute inset-0 rounded-2xl bg-white/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  </motion.div>
+              </motion.div>
 
                   {/* Service Title */}
                   <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-3 group-hover:text-accent transition-colors duration-300">
@@ -328,7 +328,7 @@ const Services: React.FC<ServicesProps> = ({ setActiveSection }) => {
                     <span 
                       className="px-3 py-1 rounded-full text-white font-medium"
                       style={{ backgroundColor: service.color.primary }}
-                    >
+                >
                       {service.complexity}
                     </span>
                   </div>

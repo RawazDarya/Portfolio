@@ -95,14 +95,14 @@ function CertificatesTable({ certificates, onAdd, onEdit, onDelete }) {
 
   return (
     <div className="container mx-auto">
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
-          <h2 className="text-2xl font-semibold text-gray-700">Manage Certificates</h2>
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-700">Manage Certificates</h2>
           <p className="text-sm text-gray-500 mt-1">Add professional certifications and achievements</p>
         </div>
         <button
           onClick={() => openModal()}
-          className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center space-x-2"
+          className="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline flex items-center justify-center space-x-2"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path>
@@ -111,7 +111,8 @@ function CertificatesTable({ certificates, onAdd, onEdit, onDelete }) {
         </button>
       </div>
 
-      <div className="bg-white shadow-md rounded-lg overflow-hidden">
+      {/* Certificates Table - Desktop */}
+      <div className="hidden md:block bg-white shadow-md rounded-lg overflow-hidden">
         <table className="min-w-full leading-normal">
           <thead>
             <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
@@ -192,6 +193,73 @@ function CertificatesTable({ certificates, onAdd, onEdit, onDelete }) {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Certificates Cards - Mobile */}
+      <div className="md:hidden space-y-4">
+        {certificates && certificates.length > 0 ? (
+          certificates.map(cert => (
+            <div key={cert.id} className="bg-white shadow-md rounded-lg p-4">
+              <div className="flex items-start space-x-3 mb-3">
+                <div className="w-12 h-12 flex-shrink-0">
+                  {(cert.image_url || cert.image) ? (
+                    <img 
+                      src={cert.image_url || cert.image} 
+                      alt={cert.title} 
+                      className="w-full h-full rounded-lg object-contain border border-gray-200"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-indigo-100 to-indigo-200 rounded-lg flex items-center justify-center">
+                      <svg className="w-6 h-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+                      </svg>
+                    </div>
+                  )}
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-start justify-between">
+                    <div>
+                      <h3 className="font-medium text-gray-900">{cert.title}</h3>
+                      <p className="text-sm text-gray-600 mt-1">{cert.organization}</p>
+                    </div>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                      cert.is_visible 
+                        ? 'bg-green-100 text-green-800' 
+                        : 'bg-gray-100 text-gray-800'
+                    }`}>
+                      {cert.is_visible ? 'Visible' : 'Hidden'}
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex justify-end space-x-3">
+                <button 
+                  onClick={() => openModal(cert)} 
+                  className="text-indigo-600 hover:text-indigo-900 font-medium text-sm focus:outline-none"
+                >
+                  Edit
+                </button>
+                <button 
+                  onClick={() => handleDelete(cert.id)} 
+                  className="text-red-600 hover:text-red-900 font-medium text-sm focus:outline-none"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))
+        ) : (
+          <div className="bg-white shadow-md rounded-lg p-6 text-center">
+            <div className="flex flex-col items-center">
+              <svg className="w-16 h-16 text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+              <p className="text-lg font-medium mb-2">No certificates found</p>
+              <p className="text-sm text-gray-500">Start by adding your first certificate!</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <Modal isOpen={isModalOpen} onClose={closeModal} title={currentCertificate ? 'Edit Certificate' : 'Add New Certificate'}>

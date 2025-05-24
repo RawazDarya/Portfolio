@@ -61,7 +61,7 @@ const Certificates: React.FC<CertificatesProps> = ({ setActiveSection }) => {
       transition: {
         staggerChildren: 0.15,
         delayChildren: 0.2,
-      },
+  },
     },
   };
 

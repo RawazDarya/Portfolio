@@ -418,7 +418,7 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
               </div>
             </motion.div>
           </motion.div>
-
+          
           {/* Contact Form */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
@@ -429,8 +429,8 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
             <div className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-2xl p-8 border border-gray-200/50 dark:border-gray-700/50 shadow-xl">
               <form onSubmit={handleSubmit} className="space-y-6">
                 <AnimatePresence>
-                  {isSubmitted && (
-                    <motion.div
+              {isSubmitted && (
+                <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
@@ -439,10 +439,10 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                       <CheckCircle className="h-6 w-6 mx-auto mb-2" />
                       <p className="font-semibold">Message sent successfully!</p>
                       <p className="text-sm">I'll get back to you within 24 hours.</p>
-                    </motion.div>
-                  )}
-                  {submitError && (
-                    <motion.div
+                </motion.div>
+              )}
+              {submitError && (
+                <motion.div
                       initial={{ opacity: 0, scale: 0.9 }}
                       animate={{ opacity: 1, scale: 1 }}
                       exit={{ opacity: 0, scale: 0.9 }}
@@ -450,14 +450,14 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                     >
                       <AlertCircle className="h-6 w-6 mx-auto mb-2" />
                       <p>{submitError}</p>
-                    </motion.div>
-                  )}
+                </motion.div>
+              )}
                 </AnimatePresence>
-
+              
                 {/* Form Fields */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name Field */}
-                  <motion.div
+              <motion.div
                     className="relative"
                     whileFocus={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
@@ -465,12 +465,12 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       <User className="inline h-4 w-4 mr-1" />
                       Full Name
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                       onFocus={() => setFocusedField('name')}
                       onBlur={() => setFocusedField(null)}
                       className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 ${
@@ -481,20 +481,20 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                             : 'border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50'
                       } focus:outline-none focus:ring-2 focus:ring-accent/50`}
                       placeholder="Your full name"
-                    />
-                    {errors.name && (
+                />
+                {errors.name && (
                       <motion.p 
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="mt-1 text-red-500 text-xs"
                       >
-                        {errors.name}
-                      </motion.p>
-                    )}
-                  </motion.div>
-
+                    {errors.name}
+                  </motion.p>
+                )}
+              </motion.div>
+              
                   {/* Email Field */}
-                  <motion.div
+              <motion.div
                     className="relative"
                     whileFocus={{ scale: 1.02 }}
                     transition={{ duration: 0.2 }}
@@ -502,12 +502,12 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                       <Mail className="inline h-4 w-4 mr-1" />
                       Email Address
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
                       onFocus={() => setFocusedField('email')}
                       onBlur={() => setFocusedField(null)}
                       className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 ${
@@ -518,17 +518,17 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                             : 'border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50'
                       } focus:outline-none focus:ring-2 focus:ring-accent/50`}
                       placeholder="your.email@example.com"
-                    />
-                    {errors.email && (
+                />
+                {errors.email && (
                       <motion.p 
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         className="mt-1 text-red-500 text-xs"
                       >
-                        {errors.email}
-                      </motion.p>
-                    )}
-                  </motion.div>
+                    {errors.email}
+                  </motion.p>
+                )}
+              </motion.div>
                 </div>
 
                 {/* Subject Field */}
@@ -607,20 +607,20 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                 </div>
 
                 {/* Message Field */}
-                <motion.div
+              <motion.div
                   className="relative"
                   whileFocus={{ scale: 1.02 }}
                   transition={{ duration: 0.2 }}
                 >
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                     <MessageCircle className="inline h-4 w-4 mr-1" />
-                    Message
-                  </label>
-                  <textarea
-                    name="message"
+                  Message
+                </label>
+                <textarea
+                  name="message"
                     rows={5}
-                    value={formData.message}
-                    onChange={handleChange}
+                  value={formData.message}
+                  onChange={handleChange}
                     onFocus={() => setFocusedField('message')}
                     onBlur={() => setFocusedField(null)}
                     className={`w-full px-4 py-3 rounded-xl border transition-all duration-300 resize-none ${
@@ -631,22 +631,22 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                           : 'border-gray-300 dark:border-gray-600 bg-white/50 dark:bg-gray-700/50'
                     } focus:outline-none focus:ring-2 focus:ring-accent/50`}
                     placeholder="Tell me about your project, goals, and any specific requirements..."
-                  />
-                  {errors.message && (
+                />
+                {errors.message && (
                     <motion.p 
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
                       className="mt-1 text-red-500 text-xs"
                     >
-                      {errors.message}
-                    </motion.p>
-                  )}
-                </motion.div>
-
+                    {errors.message}
+                  </motion.p>
+                )}
+              </motion.div>
+              
                 {/* Submit Button */}
-                <motion.button
-                  type="submit"
-                  disabled={isSubmitting}
+              <motion.button
+                type="submit"
+                disabled={isSubmitting}
                   className="w-full px-8 py-4 bg-gradient-to-r from-accent to-purple-600 text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   whileHover={{ scale: isSubmitting ? 1 : 1.02, y: isSubmitting ? 0 : -2 }}
                   whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
@@ -666,8 +666,8 @@ const Contact: React.FC<ContactProps> = ({ setActiveSection }) => {
                       Send Message
                     </>
                   )}
-                </motion.button>
-              </form>
+              </motion.button>
+            </form>
             </div>
           </motion.div>
         </div>

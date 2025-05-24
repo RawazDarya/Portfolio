@@ -157,11 +157,11 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
 
       <div className="container mx-auto px-4 md:px-6 relative z-10">
         {/* Enhanced Section Header */}
-        <motion.div
+          <motion.div
           className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6 }}
           viewport={{ once: true }}
         >
           <div className="flex items-center justify-center mb-4">
@@ -179,9 +179,9 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
         {/* Tab Navigation */}
         <motion.div
           className="flex justify-center mb-8"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
         >
           <div className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl p-1 border border-gray-200/50 dark:border-gray-700/50">
@@ -210,7 +210,7 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}
-            initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.5 }}
@@ -347,11 +347,11 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
+          </motion.div>
             )}
 
             {activeTab === 'journey' && (
-              <motion.div
+          <motion.div 
                 variants={containerVariants}
                 initial="hidden"
                 whileInView="visible"
@@ -369,7 +369,7 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
 
                 <div className="space-y-8">
                   {journey.map((item, index) => (
-                    <motion.div
+            <motion.div
                       key={index}
                       variants={itemVariants}
                       className="relative group"
@@ -410,7 +410,7 @@ const About: React.FC<AboutProps> = ({ setActiveSection }) => {
                     </motion.div>
                   ))}
                 </div>
-              </motion.div>
+            </motion.div>
             )}
           </motion.div>
         </AnimatePresence>

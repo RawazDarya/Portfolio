@@ -125,26 +125,26 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
           >
             {'{}'}
           </motion.div>
-          <motion.div
+      <motion.div
             className="absolute bottom-40 left-20 text-lg text-purple-500/20 font-mono"
             animate={{ 
               y: [0, -15, 0],
               rotate: [0, 3, 0]
             }}
             transition={{ duration: 6, repeat: Infinity, delay: 2 }}
-          >
+      >
             {'()'}
-          </motion.div>
-          <motion.div
+      </motion.div>
+      <motion.div
             className="absolute bottom-20 right-10 text-xl text-amber-500/20 font-mono"
             animate={{ 
               y: [0, 25, 0],
               rotate: [0, -3, 0]
             }}
             transition={{ duration: 4.5, repeat: Infinity, delay: 0.5 }}
-          >
+      >
             {'[]'}
-          </motion.div>
+      </motion.div>
         </div>
         
         {/* Dynamic gradient orbs */}
@@ -180,7 +180,7 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
           <motion.div
             className="space-y-8 text-center lg:text-left"
             initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
             {/* Greeting */}
@@ -237,7 +237,7 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
                     exit={{ opacity: 0, y: -20 }}
                     transition={{ duration: 0.5 }}
                     className="inline-block"
-                  >
+            >
                     {roles[currentRole]}
                   </motion.span>
                 </AnimatePresence>
@@ -313,7 +313,7 @@ const Hero: React.FC<HeroProps> = ({ setActiveSection }) => {
               
               <motion.a
                 href="/RawazDarya_Resume.pdf"
-                target="_blank"
+                target="_blank" 
                 rel="noopener noreferrer"
                 className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm border border-gray-200/50 dark:border-gray-700/50 rounded-xl font-semibold text-gray-700 dark:text-gray-300 hover:bg-white dark:hover:bg-gray-700 transition-all duration-300"
                 whileHover={{ scale: 1.05, y: -2 }}

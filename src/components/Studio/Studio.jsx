@@ -83,6 +83,7 @@ function Studio() {
   const [techStack, setTechStack] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     // Check current Supabase session
@@ -213,9 +214,31 @@ function Studio() {
   }
   
   return (
-    <div className="flex h-screen bg-gray-100">
-      <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} onLogout={handleLogout} />
-      <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+    <div className="flex flex-col lg:flex-row h-screen bg-gray-100">
+      {/* Mobile Header */}
+      <div className="lg:hidden bg-gray-800 text-white p-4 flex justify-between items-center">
+        <h2 className="text-xl font-semibold">Admin Studio</h2>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="text-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+          </svg>
+        </button>
+      </div>
+
+      {/* Sidebar */}
+      <Sidebar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab} 
+        onLogout={handleLogout}
+        isMobileMenuOpen={isMobileMenuOpen}
+        setIsMobileMenuOpen={setIsMobileMenuOpen}
+      />
+
+      {/* Main Content */}
+      <main className="flex-1 p-4 md:p-6 lg:p-10 overflow-y-auto">
         {activeTab === 'Projects' && (
           <ProjectsTable
             projects={projects}
